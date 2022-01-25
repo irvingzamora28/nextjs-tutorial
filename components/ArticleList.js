@@ -5,7 +5,7 @@ const ArticleList = ({articles}) => {
     return (
         <div className={ArticleStyles.grid}>
             {articles.map(article => { 
-				return <ArticleItem article={article} />
+				return <ArticleItem key={article.id} article={article} />
 			})}
         </div>
     );
