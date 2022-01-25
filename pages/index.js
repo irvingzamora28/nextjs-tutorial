@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import ArticleList from '../components/ArticleList';
 
-export default function Home() {
+export default function Home({articles}) {
+	console.log(articles);
 	return (
 		<div>
 			<Head>
@@ -15,19 +17,16 @@ export default function Home() {
 				<br />
                 <p className="text-cyan-700 text-2xl">Irving Zamora</p>
 			</main>
-
-			<footer>
-				<a
-					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Powered by{' '}
-					<span>
-						<Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-					</span>
-				</a>
-			</footer>
+			<ArticleList articles={articles} />
 		</div>
 	);
+}
+
+export const getStaticProps = async () => {
+	const res = await fetch(`http://jsonplaceholder.typicode.com/posts?_limit=6`)
+	const articles = await res.json()
+
+	return {
+		props: {articles}
+	}
 }
